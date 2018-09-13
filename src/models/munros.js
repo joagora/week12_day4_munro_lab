@@ -11,7 +11,17 @@ Munros.prototype.getData = function() {
   requestHelper.get()
     .then((data) => {
       this.data = data;
-      PubSub.publish('Munros:munros-names-ready', this.data);
+      PubSub.publish('Munros:munros-ready', this.data);
+    })
+    .then((data) => {
+      const regions = this.data.map(munro => munro.region);
+      const filteredRegions = regions.filter((region, index, regions) => {
+        return  regions.indexOf(region) === index;
+      })
+      console.log(filteredRegions);
+      PubSub.publish('Munros:regions-ready', filteredRegions);
+
+
     })
     .catch((message) => {
       console.error(message);

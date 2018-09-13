@@ -8,7 +8,7 @@ const MunrosListView = function(container) {
 }
 
 MunrosListView.prototype.bindEvents = function() {
-  PubSub.subscribe('Munros:munros-names-ready', (event) => {
+  PubSub.subscribe('Munros:munros-ready', (event) => {
     this.munros = event.detail;
     console.log(this.munros);
     this.render();
